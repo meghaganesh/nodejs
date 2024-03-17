@@ -16,7 +16,7 @@ pipeline {
         stage('Build and Containerize') {
             steps {
                 // Build Docker image
-                sh 'docker build -t dockerhubusername/dockerhubreponame:$BUILD_NUMBER .'
+                sh 'docker build -t meghaganesh790/node:$BUILD_NUMBER .'
             }
         }
 
@@ -24,7 +24,7 @@ pipeline {
             steps{                            
 	       sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin' 
 	       echo 'Login Completed'  
-	       sh 'docker push dockerhubusername/dockerhubreponame:$BUILD_NUMBER'
+	       sh 'docker push meghaganesh790/node:$BUILD_NUMBER'
             }            
           }               
             
@@ -33,7 +33,7 @@ pipeline {
             steps {
                 // Run Docker container
 		    
-                sh 'docker run -d -p 3001:3000 dockerhubusername/dockerhubreponame:latest'
+                sh 'docker run -d -p 3001:3000 meghaganesh790/node:latest'
             }
         }
     }
