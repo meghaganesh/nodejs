@@ -20,19 +20,15 @@ pipeline {
             }
         }
 
-        stage('Login to Docker Hub') {         
+        stage('Login to Docker Hub & Push to Docker Hub') {         
             steps{                            
 	       sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin' 
-	       echo 'Login Completed'                
+	       echo 'Login Completed'  
+	       sh 'docker push meghaganesh790/node:latest'
             }            
           }               
-        stage('Push Image to Docker Hub') {         
-            steps{                            
-	        sh 'sudo docker push meghaganesh790/node:latest'                 
-            echo 'Push Image Completed'       
-           }           
-        }      
-        
+            
+
         stage('Deploy') {
             steps {
                 // Run Docker container
