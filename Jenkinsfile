@@ -1,8 +1,7 @@
 pipeline {
     agent any
     environment {
-    DOCKERHUB_CREDENTIALS = credentials('docker-hub-credentials-1')
-    
+    DOCKERHUB_CREDENTIALS = credentials('docker-hub-credentials-1')   
 }
     
     stages {
@@ -29,12 +28,14 @@ pipeline {
           }               
             
 
-        stage('Deploy') {
+        stage('Pull Docker Image &bDeploy') {
             steps {
-                // Run Docker container
-		    
-                sh 'docker run -d -p 3001:3000 meghaganesh790/node:latest'
+                // Pull Docker image from Docker Hub
+                sh 'docker pull meghaganesh790/node:latest'
+                sh 'docker run -d -p 3002:3000 meghaganesh790/node:latest'
+		
             }
+          }
         }
-    }
+    
 }
