@@ -15,7 +15,7 @@ pipeline {
         stage('Build and Containerize') {
             steps {
                 // Build Docker image
-                sh 'docker build -t meghaganesh790/node:$BUILD_NUMBER .'
+                sh 'docker build -t meghaganesh790/node:latest .'
             }
         }
 
@@ -23,7 +23,7 @@ pipeline {
             steps{                            
 	       sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin' 
 	       echo 'Login Completed'  
-	       sh 'docker push meghaganesh790/node:$BUILD_NUMBER'
+	       sh 'docker push meghaganesh790/node:latest'
             }            
           }               
             
@@ -32,7 +32,7 @@ pipeline {
             steps {
                 // Pull Docker image from Docker Hub
                 sh 'docker pull meghaganesh790/node:latest'
-                sh 'docker run -d -p 3002:3000 meghaganesh790/node:12'
+                sh 'docker run -d -p 3002:3000 meghaganesh790/node:latest'
 		
             }
           }
