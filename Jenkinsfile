@@ -5,7 +5,7 @@ pipeline {
             steps {
                 script {
                     git branch: 'main',
-                        credentialsId: 'Credential ID',
+                        credentialsId: 'Credential_ID',
                         url: 'https://github.com/meghaganesh/nodejs.git'
                 }
             }
