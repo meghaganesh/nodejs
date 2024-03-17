@@ -1,8 +1,8 @@
 pipeline {
     agent any
     environment {
-    DOCKERHUB_CREDENTIALS_USR = credentials('docker-hub-credentials-1').username
-    DOCKERHUB_CREDENTIALS_PSW = credentials('docker-hub-credentials-1').password
+    DOCKERHUB_CREDENTIALS = credentials('docker-hub-credentials-1')
+    
 }
     
     stages {
@@ -21,10 +21,11 @@ pipeline {
         }
 
         stage('Login to Docker Hub') {         
-            steps {
-               sh "docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW"
-               echo 'Login Completed'
-               }         
+            steps{                            
+	       sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin' 
+	       sh 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
+	       echo 'Login Completed'                
+            }            
           }               
         stage('Push Image to Docker Hub') {         
             steps{                            
