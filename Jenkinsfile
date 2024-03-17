@@ -32,7 +32,7 @@ pipeline {
             steps {
                 // Pull Docker image from Docker Hub
                 sh 'docker pull meghaganesh790/node:latest'
-                sh 'docker run -d -p 3002:3000 meghaganesh790/node:latest'
+                sh 'docker run -d -p 3002:3000 meghaganesh790/node:12'
 		
             }
           }
