@@ -7,27 +7,19 @@ pipeline {
                 checkout scm
             }
         }
+    
         
-        stage('Build') {
-            steps {   
-                sh 'curl -sL https://deb.nodesource.com/setup_14.x | bash -'
-                sh 'apt-get install -y nodejs'
-                // Install dependencies and build the Node.js application
-                sh 'npm install'
-            }
-        }
-        
-        stage('Containerize') {
+        stage('Build and Containerize') {
             steps {
                 // Build Docker image
-                sh 'docker build -t my-node-app:latest .'
+                sh 'docker build -t my-node-app:v2 .'
             }
         }
         
         stage('Deploy') {
             steps {
                 // Run Docker container
-                sh 'docker run -d -p 3000:3000 my-node-app:latest'
+                sh 'docker run -d -p 3001:3000 my-node-app:latest'
             }
         }
     }
